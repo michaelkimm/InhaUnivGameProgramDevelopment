@@ -3,6 +3,7 @@
 #define SCENEMAIN_H_
 
 #include <windows.h>
+#include <vector>
 #include "SceneState.h"
 
 class SceneManager;
@@ -27,7 +28,9 @@ private:
 	HBRUSH hOldBrush_;
 private:
 	// User* user_;
+	User* user_;
 	Enemy* enemy_;
+	std::vector<POINT> hole_;
 public:
 	SceneMain();
 	SceneMain(HWND _hWnd);

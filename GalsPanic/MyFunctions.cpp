@@ -52,6 +52,7 @@ bool IsInside(POINT pt, std::vector<POINT> &polygon)
 	return crosses % 2 > 0;
 }
 
+// hole_->polygon_
 int CollisionPtLine(POINT pose_, Hole *target_hole)
 {
 	int collision = false;
@@ -70,6 +71,29 @@ int CollisionPtLine(POINT pose_, Hole *target_hole)
 	}
 	return collision;
 }
+
+int MyIsPointInPoly(POINT& pose_, std::vector<POINT>& polygon_hole_)
+{
+	
+	int collision = false;
+	int next = 0;
+	for (int current = 0; current < polygon_hole_.size(); current++)
+	{
+		next = current + 1;
+		if (next == polygon_hole_.size()) next = 0;
+
+		POINT vc = polygon_hole_[current];
+		POINT vn = polygon_hole_[next];
+
+		if (((vc.y >= pose_.y && vn.y < pose_.y) || (vc.y < pose_.y && vn.y >= pose_.y)) &&
+			(pose_.x < (vn.x - vc.x)*(pose_.y - vc.y) / (vn.y - vc.y) + vc.x))
+		{
+			collision = !collision;
+		}
+	}
+	return collision;
+}
+
 
 int LinePoint(float x1, float y1, float x2, float y2, float px, float py) {
 
@@ -92,4 +116,69 @@ int LinePoint(float x1, float y1, float x2, float y2, float px, float py) {
 		return true;
 	}
 	return false;
+}
+
+int LinePointPt(POINT p1, POINT p2, POINT pt) {
+
+	return LinePoint(p1.x, p1.y, p2.x, p2.y, pt.x, pt.y);
+}
+
+int LineLine(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4) {
+
+	// calculate the distance to intersection point
+	float uA = ((x4 - x3)*(y1 - y3) - (y4 - y3)*(x1 - x3)) / ((y4 - y3)*(x2 - x1) - (x4 - x3)*(y2 - y1));
+	float uB = ((x2 - x1)*(y1 - y3) - (y2 - y1)*(x1 - x3)) / ((y4 - y3)*(x2 - x1) - (x4 - x3)*(y2 - y1));
+
+	// if uA and uB are between 0-1, lines are colliding
+	if (uA >= 0 && uA <= 1 && uB >= 0 && uB <= 1) {
+		return true;
+	}
+	return false;
+}
+
+int LineLinePt(POINT p1, POINT p2, POINT p3, POINT p4)
+{
+	return LineLine(p1.x, p1.y, p2.x, p2.y, p3.x, p3.y, p4.x, p4.y);
+}
+
+int PtInPoly(POINT &pt, std::vector<POINT> &target_vec)
+{
+	int collision = false;
+	int next = 0;
+	for (int current = 0; current < target_vec.size(); current++)
+	{
+		next = current + 1;
+		if (next == target_vec.size()) next = 0;
+
+		POINT vc = target_vec[current];
+		POINT vn = target_vec[next];
+
+		if (((vc.y >= pt.y && vn.y < pt.y) || (vc.y < pt.y && vn.y >= pt.y)) &&
+			(pt.x < (vn.x - vc.x)*(pt.y - vc.y) / (vn.y - vc.y) + vc.x))
+		{
+			collision = !collision;
+		}
+	}
+	return collision;
+}
+
+
+// user_->pose_ / hole_->polygon_¸¸ ÇÊ¿ä
+int MyIsPointOnPoly(POINT& pose_, std::vector<POINT> &polygon_hole_)
+{
+	int collision = false;
+	int next = 0;
+	for (int current = 0; current < polygon_hole_.size(); current++)
+	{
+		next = current + 1;
+		if (next == polygon_hole_.size()) next = 0;
+
+		if (LinePoint(polygon_hole_[current].x, polygon_hole_[current].y,
+			polygon_hole_[next].x, polygon_hole_[next].y, pose_.x, pose_.y))
+		{
+			collision = !collision;
+			return collision;
+		}
+	}
+	return collision;
 }

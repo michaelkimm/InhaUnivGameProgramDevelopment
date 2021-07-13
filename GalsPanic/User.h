@@ -25,15 +25,10 @@ private:
 	int state_ = 0;
 	enum state_{ IDLE, GOBACK };
 public:
-	static User* Instance();
-protected:
 	User() {}
 	~User() {}
-private:
-	static User* instance_;
-public:
-	/*User(HWND _hWnd, POINT _pose, int _life, SIZE _collision_size, SIZE _size);
-	User(HWND _hWnd, int _cx, int _cy, int _life, SIZE _collision_size, SIZE _size);*/
+	User(HWND _hWnd, POINT _pose, int _life, SIZE _collision_size, SIZE _size);
+	User(HWND _hWnd, int _cx, int _cy, int _life, SIZE _collision_size, SIZE _size);
 
 	POINT GetPose() const { return pose_; }
 	void SetPose(POINT _pose) { pose_ = _pose; }
@@ -46,16 +41,14 @@ public:
 	int Input();
 	int Input(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) override;
 
-	int CollisionHole(Hole*);
-	int CollisionHoleLine(Hole*);
 	int ColiisionTail();
-	int TailIncludeHoleNew(Hole*);
-	int LinePoint(float x1, float y1, float x2, float y2, float px, float py);
-	int LinePointPt(POINT p1, POINT p2, POINT pt);
-	int LineLine(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4);
-	int LineLinePt(POINT p1, POINT p2, POINT p3, POINT p4);
-	int PtInPoly(POINT &pt, std::vector<POINT> &target_vec);
-	int InsertHoleToTailNew(Hole*);
+	int TailIncludeHoleNew(std::vector<POINT>& collide_polygon);
+	int InsertHoleToTailNew(std::vector<POINT>& collide_polygon);
+
+	// update 0713
+	void UserMove();
+	void UserMovefix(std::vector<POINT>& collide_polygon);
+	void UserMeetHole(std::vector<POINT>& collide_polygon);
 };
 
 #endif

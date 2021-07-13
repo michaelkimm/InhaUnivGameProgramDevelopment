@@ -31,7 +31,6 @@ public:
 	void Add(POINT);
 	friend int User::CollisionHole(Hole *);
 	friend int User::CollisionHoleLine(Hole *);
-	friend int User::InsertHoleToTailNew(Hole*);
 };
 
 #endif
