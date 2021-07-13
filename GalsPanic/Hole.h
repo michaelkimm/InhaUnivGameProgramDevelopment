@@ -34,8 +34,6 @@ public:
 	int GetMomentDir();
 	friend int User::CollisionHole(Hole *);
 	friend int User::CollisionHoleLine(Hole *);
-	friend int User::TailIncludeHole(Hole*);
-	friend int User::InsertHoleToTail(Hole *);
 	friend int User::InsertHoleToTailNew(Hole*);
 };
 

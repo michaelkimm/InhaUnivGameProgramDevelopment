@@ -51,16 +51,13 @@ public:
 	int CollisionHole(Hole*);
 	int CollisionHoleLine(Hole*);
 	int ColiisionTail();
-	int TailIncludeHole(Hole*);
 	int TailIncludeHoleNew(Hole*);
 	int LinePoint(float x1, float y1, float x2, float y2, float px, float py);
 	int LinePointPt(POINT p1, POINT p2, POINT pt);
 	int LineLine(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4);
 	int LineLinePt(POINT p1, POINT p2, POINT p3, POINT p4);
 	int PtInPoly(POINT &pt, std::vector<POINT> &target_vec);
-	int InsertHoleToTail(Hole*);
 	int InsertHoleToTailNew(Hole*);
-	int GetMomentDir();
 };
 
 #endif
