@@ -29,7 +29,6 @@ public:
 
 	void Add(std::vector<POINT>);
 	void Add(POINT);
-	int GetMomentDir();
 	friend int User::CollisionHole(Hole *);
 	friend int User::CollisionHoleLine(Hole *);
 	friend int User::InsertHoleToTailNew(Hole*);
