@@ -20,8 +20,6 @@ private:
 	// 방향
 	int cur_dir_;
 	int prev_dir_;
-	int arrange_dir_ = 0;
-	enum arrange_dir{ CW = 1, CCW};
 	enum dir{ LEFT, LEFTUP, UP, RIGHTUP, RIGHT, RIGHTDOWN, DOWN, LEFTDOWN };
 	// 상태
 	int state_ = 0;

@@ -32,7 +32,6 @@ SceneMain::SceneMain(HWND _hWnd) : SceneState(_hWnd)
 	Hole::Instance()->Add(POINT{ cx + rect_width / 2, cy - rect_height / 2 });
 	Hole::Instance()->Add(POINT{ cx + rect_width / 2, cy + rect_height / 2 });
 	Hole::Instance()->Add(POINT{ cx - rect_width / 2, cy + rect_height / 2 });
-	Hole::Instance()->intersect_dir_ = Hole::CW;
 
 
 	// 플레이어 얻기

@@ -23,8 +23,6 @@ public:
 	static Hole* Instance();
 public:
 	std::vector<int> intersect_pt_idx_vec_;
-	enum dir { CW = 1, CCW = 2 };
-	int intersect_dir_ = 0;						// CW = 0 / CCW = 1
 
 	int Draw(HDC);
 	int Update();

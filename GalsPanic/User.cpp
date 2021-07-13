@@ -179,10 +179,7 @@ int User::Input()
 			return -1;
 		}
 		else
-		{
-			//pose_ = prev_pose_;
 			state_ = GOBACK;
-		}
 	}
 	// <<
 
@@ -192,8 +189,6 @@ int User::Input()
 		this->polygon_hole_.emplace_back(pose_);	// 닿은 순간도 넣어
 		InsertHoleToTailNew(Hole::Instance());
 	}
-	Hole::Instance()->intersect_dir_ = 0;	// 꼬리 & 구멍 방향 초기화
-	arrange_dir_ = 0;
 	// <<
 
 	
