@@ -219,6 +219,7 @@ void User::UserMove()
 	
 	if (GetKeyState(VK_LEFT) & 0x8000)
 	{
+		// pose_ = pose_ + POINT{ 1, 0 };
 		this->SetPose(this->GetPose().x - user_move, this->GetPose().y);
 		cur_dir_ = LEFT;
 		if (GetKeyState(VK_UP) & 0x8000)
