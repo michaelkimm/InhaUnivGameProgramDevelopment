@@ -3,14 +3,15 @@
 // #include "Hole.h"
 #include "pointLF.h"
 #include "MyFunctions.h"
+#include "InputManager.h"
 
 #include <iostream>
 #include <math.h>
 
 User::User(HWND _hWnd, POINT _pose, int _life, SIZE _collision_size, SIZE _size)
-	: Player(_hWnd, _pose, _life, _collision_size, _size), cur_dir_(0), prev_dir_(1) {}
+	: Player(_hWnd, _pose, _life, _collision_size, _size) {}
 User::User(HWND _hWnd, int _cx, int _cy, int _life, SIZE _collision_size, SIZE _size)
-	: Player(_hWnd, POINT{ _cx, _cy }, _life, _collision_size, _size), cur_dir_(0), prev_dir_(1) {}
+	: Player(_hWnd, POINT{ _cx, _cy }, _life, _collision_size, _size) {}
 
 void User::SetData(HWND _hWnd, POINT _pose, int _life, SIZE _collision_size, SIZE _size)
 {
@@ -19,8 +20,6 @@ void User::SetData(HWND _hWnd, POINT _pose, int _life, SIZE _collision_size, SIZ
 	life_ = _life;
 	collision_size_ = _collision_size;
 	size_ = _size;
-	cur_dir_ = 0;
-	prev_dir_ = 1;
 }
 
 void User::SetData(HWND _hWnd, int _cx, int _cy, int _life, SIZE _collision_size, SIZE _size)
@@ -212,73 +211,20 @@ int User::InsertHoleToTail(std::vector<POINT>& collide_polygon)
 void User::UserMove()
 {
 	// : >> 움직임 구현
-	prev_dir_ = cur_dir_;	// 이전 방향 및 위치 업데이트
 	prev_pose_ = pose_;
 
+	// 어느정도 움직일지 InputManger로 데이터 얻기
 	int user_move = 5;
-	
-	if (GetKeyState(VK_LEFT) & 0x8000)
-	{
-		// pose_ = pose_ + POINT{ 1, 0 };
-		this->SetPose(this->GetPose().x - user_move, this->GetPose().y);
-		cur_dir_ = LEFT;
-		if (GetKeyState(VK_UP) & 0x8000)
-		{
-			this->SetPose(this->GetPose().x, this->GetPose().y - user_move);
-			cur_dir_ = LEFTUP;
-		}
-		if (GetKeyState(VK_DOWN) & 0x8000)
-		{
-			this->SetPose(this->GetPose().x, this->GetPose().y + user_move);
-			cur_dir_ = LEFTDOWN;
-		}
-	}
-	else if (GetKeyState(VK_UP) & 0x8000)
-	{
-		this->SetPose(this->GetPose().x, this->GetPose().y - user_move);
-		cur_dir_ = UP;
-		if (GetKeyState(VK_LEFT) & 0x8000)
-		{
-			this->SetPose(this->GetPose().x - user_move, this->GetPose().y);
-			cur_dir_ = LEFTUP;
-		}
-		if (GetKeyState(VK_RIGHT) & 0x8000)
-		{
-			this->SetPose(this->GetPose().x + user_move, this->GetPose().y);
-			cur_dir_ = RIGHTUP;
-		}
-	}
-	else if (GetKeyState(VK_RIGHT) & 0x8000)
-	{
-		this->SetPose(this->GetPose().x + user_move, this->GetPose().y);
-		cur_dir_ = RIGHT;
-		if (GetKeyState(VK_UP) & 0x8000)
-		{
-			this->SetPose(this->GetPose().x, this->GetPose().y - user_move);
-			cur_dir_ = RIGHTUP;
-		}
-		if (GetKeyState(VK_DOWN) & 0x8000)
-		{
-			this->SetPose(this->GetPose().x, this->GetPose().y + user_move);
-			cur_dir_ = RIGHTDOWN;
-		}
-	}
-	else if (GetKeyState(VK_DOWN) & 0x8000)
-	{
-		this->SetPose(this->GetPose().x, this->GetPose().y + user_move);
-		cur_dir_ = DOWN;
-		if (GetKeyState(VK_LEFT) & 0x8000)
-		{
-			this->SetPose(this->GetPose().x - user_move, this->GetPose().y);
-			cur_dir_ = LEFTDOWN;
-		}
-		if (GetKeyState(VK_RIGHT) & 0x8000)
-		{
-			this->SetPose(this->GetPose().x + user_move, this->GetPose().y);
-			cur_dir_ = RIGHTDOWN;
-		}
-	}
-	// <<
+
+	int horizontal_move = 0;
+	int vertical_move = 0;
+	if (InputManager::Instance()->GetLeftKeyState()) horizontal_move -= 1;
+	if (InputManager::Instance()->GetRightKeyState()) horizontal_move += 1;
+	if (InputManager::Instance()->GetUpKeyState()) vertical_move -= 1;
+	if (InputManager::Instance()->GetDownKeyState()) vertical_move += 1;
+
+	// 위치 변경
+	SetPose(pose_.x + horizontal_move * user_move, pose_.y + vertical_move * user_move);
 
 	return;
 }

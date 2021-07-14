@@ -17,10 +17,6 @@ private:
 	// 위치
 	POINT pose_;
 	POINT prev_pose_;
-	// 방향
-	int cur_dir_;
-	int prev_dir_;
-	enum dir{ LEFT, LEFTUP, UP, RIGHTUP, RIGHT, RIGHTDOWN, DOWN, LEFTDOWN };
 	// 상태
 	int state_ = 0;
 	enum state_{ IDLE, GOBACK };

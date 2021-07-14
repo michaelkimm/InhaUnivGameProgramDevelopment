@@ -23,7 +23,8 @@ static int cnt = 0;
 #define MAIN_TIMER 123
 
 // : >> Scene
-SceneManager* scene;
+SceneManager* scene_manager;
+InputManager* input_manager;
 
 // : >> 윈도우 창 관련
 RECT windowSize;
@@ -89,7 +90,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 		}
 		else
 		{
-			scene->Input();
+			scene_manager->Input();
 		}
 	}
 
@@ -169,8 +170,12 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	case WM_CREATE:
 		{
 			GetClientRect(hWnd, &windowSize);
-			scene = new SceneManager(hWnd);
-			scene->SetSceneState(SceneManager::LOGIN);
+			// 장면 관리자 생성
+			scene_manager = new SceneManager(hWnd);
+			scene_manager->SetSceneState(SceneManager::LOGIN);
+			// 입력 관리자 생성
+			input_manager = InputManager::Instance();
+
 			SetTimer(hWnd, MAIN_TIMER, 25, NULL);
 		}
 		break;
@@ -182,7 +187,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 				//----------- scene->Update()-------------//
 				// User: 스페이스바 떼면 돌아가기 구현
 				//----------------------------------------//
-				scene->Update();		
+				scene_manager->Update();
+				input_manager->Instance()->Update();
 				InvalidateRect(hWnd, &windowSize, false);
 				break;
 			default:
@@ -206,7 +212,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			// Scene: 로그인 입력 / 로그인 -> 메인 전환
 			// User: x
 			//----------------------------------------//
-;			scene->Input(hWnd, message, wParam, lParam);
+;			scene_manager->Input(hWnd, message, wParam, lParam);
 		}
 		break;	
     case WM_COMMAND:
@@ -231,7 +237,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             PAINTSTRUCT ps;
             HDC hdc = BeginPaint(hWnd, &ps);
 
-			scene->Draw(hdc);
+			scene_manager->Draw(hdc);
             EndPaint(hWnd, &ps);
         }
         break;

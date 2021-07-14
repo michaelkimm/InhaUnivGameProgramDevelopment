@@ -156,6 +156,7 @@
     <ClInclude Include="framework.h" />
     <ClInclude Include="GalsPanic.h" />
     <ClInclude Include="Hole.h" />
+    <ClInclude Include="InputManager.h" />
     <ClInclude Include="MyFunctions.h" />
     <ClInclude Include="MyGdiplus.h" />
     <ClInclude Include="Player.h" />
@@ -174,6 +175,7 @@
     <ClCompile Include="figureDraw.cpp" />
     <ClCompile Include="GalsPanic.cpp" />
     <ClCompile Include="Hole.cpp" />
+    <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="MyFunctions.cpp" />
     <ClCompile Include="MyGdiplus.cpp" />
     <ClCompile Include="Player.cpp" />

@@ -121,13 +121,13 @@ int LineLine(float x1, float y1, float x2, float y2, float x3, float y3, float x
 }
 
 
-
-// 면적 구하기 함수입니다
+// : >> 면적 구하기 위한 함수들입니다
+// 2차원 벡터의 외적 값입니다
 int ccw(const POINT & pa, const POINT & pb, const POINT & pc)
 {
 	return (pb.x - pa.x) * (pc.y - pa.y) - (pb.y - pa.y) * (pc.x - pa.x);
 }
-
+// 면적 구하기 함수입니다.
 double GetArea(const std::vector<POINT>& polygon)
 {
 	double sum = 0;
