@@ -41,9 +41,8 @@ public:
 	int Input();
 	int Input(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) override;
 
-	int ColiisionTail();
-	int TailIncludeHoleNew(std::vector<POINT>& collide_polygon);
-	int InsertHoleToTailNew(std::vector<POINT>& collide_polygon);
+	int TailIncludeHole(std::vector<POINT>& collide_polygon);
+	int InsertHoleToTail(std::vector<POINT>& collide_polygon);
 
 	// update 0713
 	void UserMove();

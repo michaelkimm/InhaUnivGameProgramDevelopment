@@ -6,7 +6,7 @@
 #include "figureDraw.h"
 #include "MyGdiplus.h"
 #include "User.h"
-#include "Hole.h"
+// #include "Hole.h"
 
 #pragma comment(lib, "msimg32.lib")
 

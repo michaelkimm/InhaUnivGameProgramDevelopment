@@ -164,14 +164,20 @@ int PtInPoly(POINT &pt, std::vector<POINT> &target_vec)
 
 
 // user_->pose_ / hole_->polygon_¸¸ ÇÊ¿ä
-int MyIsPointOnPoly(POINT& pose_, std::vector<POINT> &polygon_hole_)
+int MyIsPointOnPoly(POINT& pose_, std::vector<POINT> &polygon_hole_, bool think_as_poly)
 {
 	int collision = false;
 	int next = 0;
 	for (int current = 0; current < polygon_hole_.size(); current++)
 	{
 		next = current + 1;
-		if (next == polygon_hole_.size()) next = 0;
+		if (next == polygon_hole_.size())
+		{
+			if (think_as_poly)
+				next = 0;
+			else
+				continue;
+		}
 
 		if (LinePoint(polygon_hole_[current].x, polygon_hole_[current].y,
 			polygon_hole_[next].x, polygon_hole_[next].y, pose_.x, pose_.y))
@@ -181,4 +187,46 @@ int MyIsPointOnPoly(POINT& pose_, std::vector<POINT> &polygon_hole_)
 		}
 	}
 	return collision;
+}
+
+POINT operator+(POINT & p1, POINT & p2)
+{
+	return POINT{ p1.x + p2.x, p1.y + p2.y };
+}
+
+POINT operator-(POINT & p1, POINT & p2)
+{
+	return POINT{ p1.x - p2.x, p1.y - p2.y };
+}
+
+bool operator==(POINT & p1, POINT & p2)
+{
+	return (p1.x == p2.x) && (p1.y == p2.y);
+}
+
+bool operator!=(POINT & p1, POINT & p2)
+{
+	return (p1.x != p2.x) || (p1.y != p2.y);
+}
+
+void operator+=(POINT & p1, POINT & p2)
+{
+	p1.x = p1.x + p2.x;
+	p1.y = p1.y + p2.y;
+}
+
+void operator-=(POINT & p1, POINT & p2)
+{
+	p1.x = p1.x - p2.x;
+	p1.y = p1.y - p2.y;
+}
+
+POINT operator*(int m, POINT & p1)
+{
+	return POINT{ p1.x * m, p1.y * m };
+}
+
+POINT operator*(POINT & p1, int m)
+{
+	return POINT{ p1.x * m, p1.y * m };
 }

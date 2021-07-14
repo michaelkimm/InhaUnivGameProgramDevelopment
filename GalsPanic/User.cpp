@@ -1,6 +1,6 @@
 #include "User.h"
 #include "figureDraw.h"
-#include "Hole.h"
+// #include "Hole.h"
 #include "pointLF.h"
 #include "MyFunctions.h"
 
@@ -91,34 +91,24 @@ int User::Input(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	return 0;
 }
 
-int User::ColiisionTail()
-{
-	int collision = false;
-
-	for (POINT vec : polygon_hole_)
-	{
-		if (vec.x == pose_.x && vec.y == pose_.y)
-			return !collision;
-	}
-
-	return collision;
-}
-
-// pose_, hole_->polygon_hole_, this->polygon_hole
-int User::TailIncludeHoleNew(std::vector<POINT>& collide_polygon)
+// 구멍이 꼬리 안에 있거나 겹쳐 있는 경우
+int User::TailIncludeHole(std::vector<POINT>& collide_polygon)
 {
 	int on_hole_edge = 0;
 	for (int hole_idx = 0; hole_idx < collide_polygon.size(); hole_idx++)
 	{
-		on_hole_edge = MyIsPointOnPoly(pose_, collide_polygon);
-		if (!IsInside(collide_polygon[hole_idx], this->polygon_hole_))
+		on_hole_edge = MyIsPointOnPoly(collide_polygon[hole_idx], this->polygon_hole_);
+		if (!IsInside(collide_polygon[hole_idx], this->polygon_hole_))	// 꼬리 안에 없으면 return 0
+		{
+			if (on_hole_edge)	// 겹친 경우 고려
+				continue;
 			return 0;
+		}
 	}
 	return 1;
 }
 
-
-int User::InsertHoleToTailNew(std::vector<POINT>& collide_polygon)
+int User::InsertHoleToTail(std::vector<POINT>& collide_polygon)
 {
 	// : >> 점과 선이 만나는 알고리즘 이용하면 해당 점이 2' 3' 선분에 있는 것을 알 수 있다.
 	// 첫번째 점
@@ -154,7 +144,7 @@ int User::InsertHoleToTailNew(std::vector<POINT>& collide_polygon)
 	// : >> 각 벡터 객체의 CC, CCW에 따라 다르게 대입
 	std::cout << "둘다 CW이거나 둘다 CCW이면\n";
 	// : << 먼저 넣어보고 hole이 hole을 넣은 tale에 속하는지 보자. 안속하면 반대로 실행
-	if (TailIncludeHoleNew(collide_polygon))
+	if (TailIncludeHole(collide_polygon))
 	{
 		std::cout << "포함\n";
 		// last 점이 first보다 뒤인 경우
@@ -181,7 +171,7 @@ int User::InsertHoleToTailNew(std::vector<POINT>& collide_polygon)
 	// <<
 
 	// std::cout << "양 방향\n";
-	if (TailIncludeHoleNew(collide_polygon))
+	if (TailIncludeHole(collide_polygon))
 	{
 		// std::cout << "포함\n";
 		// last 점이 first보다 뒤인 경우
@@ -226,6 +216,7 @@ void User::UserMove()
 	prev_pose_ = pose_;
 
 	int user_move = 5;
+	
 	if (GetKeyState(VK_LEFT) & 0x8000)
 	{
 		this->SetPose(this->GetPose().x - user_move, this->GetPose().y);
@@ -297,7 +288,7 @@ void User::UserMovefix(std::vector<POINT>& collide_polygon)
 	int on_hole_edge = MyIsPointOnPoly(pose_, collide_polygon);
 
 	// : >> 이미 만든 꼬리 위라면
-	if (ColiisionTail())
+	if (MyIsPointOnPoly(pose_, polygon_hole_, false))
 	{
 		// 내 위치 나가기 전 첫 위치로 & 벡터 비워
 		pose_ = polygon_hole_[0];
@@ -351,7 +342,7 @@ void User::UserMeetHole(std::vector<POINT>& collide_polygon)
 	if (on_hole_edge && (polygon_hole_.size() != 0))
 	{
 		this->polygon_hole_.emplace_back(pose_);	// 닿은 순간도 넣어
-		InsertHoleToTailNew(collide_polygon);
+		InsertHoleToTail(collide_polygon);
 	}
 	// <<
 

@@ -29,8 +29,6 @@ public:
 
 	void Add(std::vector<POINT>);
 	void Add(POINT);
-	friend int User::CollisionHole(Hole *);
-	friend int User::CollisionHoleLine(Hole *);
 };
 
 #endif
