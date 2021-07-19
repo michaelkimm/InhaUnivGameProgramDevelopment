@@ -8,21 +8,14 @@
 class Machine;
 class State;
 
-namespace event
+class Event
 {
-	class Event
-	{
-	private:
-	public:
-		Event() {}
-		virtual ~Event() {}
-
+private:
+public:
+	Event() {}
+	virtual ~Event() {}
 		virtual void Notify(Machine*, State*);
-	};
-}
-
-
-
+};
 #endif
 
 

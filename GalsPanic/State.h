@@ -17,7 +17,7 @@ public:
 
 	virtual void OnEntry(Machine*, State*);
 	virtual void OnExit(Machine*, State*);
-	virtual void OnEvent(Machine*, event::Event *);
+	virtual void OnEvent(Machine*, Event *);
 
 	virtual void Update(Machine*);
 	

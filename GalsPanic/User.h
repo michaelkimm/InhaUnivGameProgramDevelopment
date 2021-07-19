@@ -15,7 +15,6 @@ class User : public Player
 private:
 	std::vector<POINT> polygon_hole_;
 	// 위치
-	POINT pose_;
 	POINT prev_pose_;
 	// 상태
 	int state_ = 0;

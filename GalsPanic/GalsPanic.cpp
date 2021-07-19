@@ -90,7 +90,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 		}
 		else
 		{
-			scene_manager->Input();
+			scene_manager->Update();
 			input_manager->Instance()->Update();
 
 		}

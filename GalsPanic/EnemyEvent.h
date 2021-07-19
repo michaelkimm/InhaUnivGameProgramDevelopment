@@ -5,14 +5,12 @@
 #include "Event.h"
 #include "State.h"
 
-class event::Event;
+class Event;
 class Machine;
 class State;
 
-namespace event
-{
 
-	enum enemy_event_code { ec_detect_dt_passed, ec_en_attacked, ec_en_Idle_dt };
+enum enemy_event_code { ec_detect_dt_passed, ec_en_attacked, ec_en_Idle_dt };
 
 /*********************************************************************************
  CD Enemy STATE TRANSITION TABLE
@@ -25,21 +23,20 @@ namespace event
  Attack        | ec_en_attacked      | Dead       | EnemyShake, Destroy
 ---------------+---------------------+------------+--------------------------------------
 *********************************************************************************/
+class EnemyEvent : public Event
+{
+private:
+	static EnemyEvent* instance_;
+public:
+	static EnemyEvent* Instance(enemy_event_code _code);
+protected:
+	explicit EnemyEvent(enemy_event_code _code) : code_(_code) {}
+	~EnemyEvent();
+public:
+	enemy_event_code code_;
+	virtual void Notify(Machine*, State*);
+	void SetEventCode(enemy_event_code _code);
+};
 
-	class EnemyEvent : public event::Event
-	{
-	private:
-		static EnemyEvent* instance_;
-	public:
-		static EnemyEvent* Instance(enemy_event_code _code);
-	protected:
-		explicit EnemyEvent(enemy_event_code _code) : code_(_code) {}
-		~EnemyEvent() {}
-	public:
-		enemy_event_code code_;
-		virtual void Notify(Machine*, State*);
-		void SetEventCode(enemy_event_code _code);
-	};
-}
 #endif
 

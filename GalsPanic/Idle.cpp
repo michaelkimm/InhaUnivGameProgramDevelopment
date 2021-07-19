@@ -7,6 +7,9 @@
 #include "Dead.h"
 #include "Alive.h"
 
+#include <iostream>
+using namespace std;
+
 Idle::~Idle()
 {
 	if (instance_ != nullptr)
@@ -24,27 +27,30 @@ Idle * Idle::Instance()
 
 void Idle::OnEntry(Machine *m, State *s)
 {
+	cout << "Idle state onEntry!\n";
 }
 
 void Idle::OnExit(Machine *m, State *s)
 {
+	cout << "Idle state onExit!\n";
+	cout << "------------------------------------------------------------\n";
 }
 
-void Idle::OnEvent(Machine *m, event::Event *e)
+void Idle::OnEvent(Machine *m, Event *e)
 {
-	Enemy*				pt_enemy	= static_cast<Enemy*> (m);
-	event::EnemyEvent*  pt_event	= static_cast<event::EnemyEvent*> (e);
+	Enemy*		pt_enemy = static_cast<Enemy*> (m);
+	EnemyEvent*	pt_event = static_cast<EnemyEvent*> (e);
 
 	switch (pt_event->code_)
 	{
-		case event::ec_detect_dt_passed:
+		case ec_detect_dt_passed:
 		{
 			pt_enemy->EnemyShake();
 			pt_enemy->Transition(Attack::Instance());
 		}
 		break;
 
-		case event::ec_en_attacked:
+		case ec_en_attacked:
 		{
 			pt_enemy->EnemyShake();
 			pt_enemy->Destroy();

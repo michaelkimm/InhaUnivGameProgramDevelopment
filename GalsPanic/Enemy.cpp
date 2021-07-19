@@ -3,9 +3,16 @@
 #include "State.h"
 #include "EnemyState.h"
 #include "EnemyEvent.h"
+#include "figureDraw.h"
 
 #include <iostream>
 using namespace std;
+
+Enemy::~Enemy()
+{
+	if (state_ != nullptr)
+		delete state_;
+}
 
 void Enemy::Transition(State* s)
 {
@@ -18,13 +25,9 @@ void Enemy::Transition(State* s)
 	Machine::Transition(s);
 }
 
-void Enemy::Notify(event::Event*)
+int Enemy::Draw(HDC hdc) const
 {
-
-}
-
-int Enemy::Draw(HDC) const
-{
+	DrawEllipse(hdc, pose_, size_.cx);
 	return 0;
 }
 
@@ -52,17 +55,17 @@ int Enemy::Input(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		case 0x41:
 			// key A인 경우
 			cout << "key A down\n";
-			Notify(event::EnemyEvent::Instance(event::ec_detect_dt_passed));
+			Notify(EnemyEvent::Instance(ec_detect_dt_passed));
 			break;
 		case 0x49:
 			// key I인 경우
 			cout << "key I down\n";
-			Notify(event::EnemyEvent::Instance(event::ec_en_Idle_dt));
+			Notify(EnemyEvent::Instance(ec_en_Idle_dt));
 			break;
 		case 0x44:
 			// key D인 경우
 			cout << "key D down\n";
-			Notify(event::EnemyEvent::Instance(event::ec_en_attacked));
+			Notify(EnemyEvent::Instance(ec_en_attacked));
 			break;
 		default:
 			break;

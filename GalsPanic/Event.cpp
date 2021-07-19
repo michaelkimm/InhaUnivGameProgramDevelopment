@@ -4,8 +4,11 @@
 #include <iostream>
 using namespace std;
 
-void event::Event::Notify(Machine *m, State *s)
+void Event::Notify(Machine *m, State *s)
 {
-	cout << "state: " << s->GetName() << " is OnEvent\n";
-	s->OnEvent(m, this);
+	if (s)
+	{
+		cout << "state: " << s->GetName() << " is OnEvent\n";
+		s->OnEvent(m, this);
+	}
 }

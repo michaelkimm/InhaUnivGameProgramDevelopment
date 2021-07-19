@@ -8,6 +8,9 @@
 #include "Event.h"
 #include "EnemyEvent.h"
 
+#include <iostream>
+using namespace std;
+
 Attack* Attack::instance_ = 0;
 
 Attack * Attack::Instance()
@@ -25,22 +28,25 @@ Attack::~Attack()
 
 void Attack::OnEntry(Machine *m, State *s)
 {
+	cout << "Attack state onEntry!\n";
 }
 
 void Attack::OnExit(Machine *m, State *s)
 {
+	cout << "Attack state onExit!\n";
+	cout << "------------------------------------------------------------\n";
 }
 
-void Attack::OnEvent(Machine *m, event::Event *e)
+void Attack::OnEvent(Machine *m, Event *e)
 {
 	// 머신과 이벤트 정적 캐스팅
-	Enemy*				pt_enemy = static_cast<Enemy*> (m);
-	event::EnemyEvent*	pt_Event = static_cast<event::EnemyEvent*> (e);
+	Enemy*		pt_enemy = static_cast<Enemy*> (m);
+	EnemyEvent*	pt_Event = static_cast<EnemyEvent*> (e);
 
 	// 이벤트에 따라 transition 결정
 	switch (pt_Event->code_)
 	{
-	case event::ec_en_attacked:
+	case ec_en_attacked:
 	{
 		pt_enemy->EnemyShake();
 		pt_enemy->Destroy();
@@ -48,7 +54,7 @@ void Attack::OnEvent(Machine *m, event::Event *e)
 	}
 	break;
 
-	case event::ec_en_Idle_dt:
+	case ec_en_Idle_dt:
 	{
 		pt_enemy->Transition(Idle::Instance());
 	}

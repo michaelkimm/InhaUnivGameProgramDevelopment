@@ -6,14 +6,14 @@
 using namespace std;
 
 void State::OnEntry(Machine *, State *)
-{
+{	
 }
 
 void State::OnExit(Machine *, State *)
 {
 }
 
-void State::OnEvent(Machine *, event::Event *)
+void State::OnEvent(Machine *, Event *)
 {
 }
 

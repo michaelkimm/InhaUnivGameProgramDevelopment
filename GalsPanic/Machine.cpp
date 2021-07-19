@@ -2,6 +2,14 @@
 #include "State.h"
 #include "Event.h"
 
+#include <iostream>
+using namespace std;
+
+Machine::Machine(State * _state, POINT _pose, float _vx, float _vy, SIZE _collision_size)
+	: state_(_state), pose_(_pose), vx_(_vx), vy_(_vy), collision_size_(_collision_size)
+{
+}
+
 void Machine::Transition(State *cur_state)
 {
 	State* prev_state_;
@@ -16,9 +24,15 @@ void Machine::Transition(State *cur_state)
 
 }
 
-void Machine::Notify(event::Event *e)
+void Machine::Notify(Event *e)
 {
-	e->Notify(this, state_);
+	cout << "머신 Notify 함수 안임\n";
+
+	if (e)
+	{
+		cout << "머신에서 이벤트 발생시킴\n";
+		e->Notify(this, state_);
+	}
 }
 
 State* Machine::GetState() const

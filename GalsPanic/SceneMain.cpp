@@ -51,44 +51,41 @@ SceneMain::~SceneMain()
 
 int SceneMain::Update(SceneManager * _s)
 {
-	/*if (User::Instance()->CollisionHole(Hole::Instance()))
-	{
+	// : >> 유저 업데이트
+	// 업데이트 시간
+	DWORD cur_time = GetTickCount();
+	static DWORD prev_time = cur_time;
+	if (prev_time - cur_time < 100)
+		return -1;
+	prev_time = cur_time;
 
-	}*/
-		//std::cout << "구멍 안임!\n";
-	user_->Update();
+	// 키로 유저 움직이기
+	user_->UserMove();
+
+	// 움직인 유저 위치 조정
+	user_->UserMovefix(hole_);
+
+	// 유저와 hole 상호작용
+	user_->UserMeetHole(hole_);
+	// <<
+
+	// : >> 적 업데이트
 	enemy_->Update();
+	// <<
 
 	return 0;
 }
 
 int SceneMain::Input()
 {
-	// : >> 업데이트 시간
-	DWORD cur_time = GetTickCount();
-	static DWORD prev_time = cur_time;
-	if (prev_time - cur_time < 100)
-		return -1;
-	prev_time = cur_time;
-	// <<
-
-	// : >> 키로 유저 움직이기
-	user_->UserMove();
-
-	// : >> 움직인 유저 위치 조정
-	user_->UserMovefix(hole_);
-
-	// : >> 유저와 hole 상호작용
-	user_->UserMeetHole(hole_);
-
-	// user_->Input();
+	
 	return 0;
 }
 
 int SceneMain::Input(SceneManager * _s, HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	user_->Input(hWnd, message, wParam, lParam);
-	enemy_->Input(hWnd, message, wParam, lParam);
+	// enemy_->Input(hWnd, message, wParam, lParam);
 	return 0;
 }
 
@@ -157,6 +154,12 @@ int SceneMain::Draw(HDC hdc)
 	// : >> 플레이어 그리기
 	{
 		user_->Draw(hMemDC);
+	}
+	// <<
+
+	// : >> 적 그리기
+	{
+		enemy_->Draw(hMemDC);
 	}
 	// <<
 

@@ -21,7 +21,7 @@ protected:
 
 	void OnEntry(Machine*, State*) override;
 	void OnExit(Machine*, State*) override;
-	void OnEvent(Machine*, event::Event*) override;
+	void OnEvent(Machine*, Event*) override;
 
 	void Update(Machine*) override;
 

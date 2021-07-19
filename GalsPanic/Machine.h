@@ -21,11 +21,11 @@ protected:
 	float vy_;
 	SIZE collision_size_;
 public:
-	explicit Machine(State* _state, POINT _pose, float _vx, float _vy, SIZE _collision_size) {}
+	explicit Machine(State* _state, POINT _pose, float _vx, float _vy, SIZE _collision_size);
 	virtual ~Machine() {}
 
 	virtual void Transition(State*);
-	virtual void Notify(event::Event *e);
+	virtual void Notify(Event *e);
 	State* GetState() const;
 
 	virtual int Draw(HDC) const;

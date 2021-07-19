@@ -15,7 +15,7 @@ void Alive::OnExit(Machine *m, State *s)
 {
 }
 
-void Alive::OnEvent(Machine *m, event::Event *e)
+void Alive::OnEvent(Machine *m, Event *e)
 {
 	
 }
