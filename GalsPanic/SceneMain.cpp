@@ -6,7 +6,9 @@
 #include "figureDraw.h"
 #include "MyGdiplus.h"
 #include "User.h"
-// #include "Hole.h"
+#include "Enemy.h"
+
+#include "Idle.h"
 
 #pragma comment(lib, "msimg32.lib")
 
@@ -36,6 +38,9 @@ SceneMain::SceneMain(HWND _hWnd) : SceneState(_hWnd)
 	// 플레이어 얻기
 	user_ = new User(hWnd_, left_up.x, left_up.y, 3, SIZE{ 20, 20 }, SIZE{ 20, 20 });
 	user_->SetData(hWnd_, left_up.x, left_up.y, 3, SIZE{ 20, 20 }, SIZE{ 20, 20 });
+
+	// 적 얻기
+	enemy_ = new Enemy(Idle::Instance(), POINT{ 200, 200 }, 5, 5, SIZE{ 50, 50 }, hWnd_, 1, SIZE{ 50, 50 });
 }
 
 SceneMain::~SceneMain()
@@ -52,6 +57,8 @@ int SceneMain::Update(SceneManager * _s)
 	}*/
 		//std::cout << "구멍 안임!\n";
 	user_->Update();
+	enemy_->Update();
+
 	return 0;
 }
 
@@ -81,6 +88,7 @@ int SceneMain::Input()
 int SceneMain::Input(SceneManager * _s, HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	user_->Input(hWnd, message, wParam, lParam);
+	enemy_->Input(hWnd, message, wParam, lParam);
 	return 0;
 }
 

@@ -91,6 +91,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 		else
 		{
 			scene_manager->Input();
+			input_manager->Instance()->Update();
+
 		}
 	}
 
@@ -188,7 +190,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 				// User: 스페이스바 떼면 돌아가기 구현
 				//----------------------------------------//
 				scene_manager->Update();
-				input_manager->Instance()->Update();
 				InvalidateRect(hWnd, &windowSize, false);
 				break;
 			default:

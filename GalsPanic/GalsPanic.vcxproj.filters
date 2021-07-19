@@ -25,6 +25,42 @@
     <Filter Include="소스 파일\Player">
       <UniqueIdentifier>{27e9192f-a178-4906-93e0-65e082c98b25}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\Machine">
+      <UniqueIdentifier>{aab4dfb2-6aeb-4bde-8b01-0c671a56424b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\Machine">
+      <UniqueIdentifier>{9f6117af-cffb-4a7b-9e33-4396acdabe41}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\State">
+      <UniqueIdentifier>{1504524d-5fa4-4142-94f0-67f73ebc2d19}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\State">
+      <UniqueIdentifier>{1af90c7a-6094-4eaa-8290-c395aecefa33}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\State\EnemyState">
+      <UniqueIdentifier>{447990d5-9c40-4e19-8fd4-8b3c181d1610}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\State\EnemyState">
+      <UniqueIdentifier>{5baed822-4d0e-4864-bb70-27e94cd6213d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\MyFunc">
+      <UniqueIdentifier>{c3a57ebe-5358-4afd-b1da-97756ed3c45d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Singleton">
+      <UniqueIdentifier>{64306096-304f-438b-aeec-c2d1978456ae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\MyFunc">
+      <UniqueIdentifier>{11926311-5dc4-4555-9ba6-42373debba27}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\Singleton">
+      <UniqueIdentifier>{5df8a9b0-6e17-4ebe-b9b7-f129b0a5f985}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\Event">
+      <UniqueIdentifier>{a14e357a-84d4-4b95-b04f-f17d515fe7db}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Event">
+      <UniqueIdentifier>{899d0980-d2a0-454e-bded-fb37ea81c480}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -37,9 +73,6 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="GalsPanic.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="figureDraw.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="SceneLogin.h">
@@ -57,36 +90,63 @@
     <ClInclude Include="SceneState.h">
       <Filter>헤더 파일\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="MyGdiplus.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="Player.h">
       <Filter>헤더 파일\Player</Filter>
     </ClInclude>
     <ClInclude Include="User.h">
       <Filter>헤더 파일\Player</Filter>
     </ClInclude>
+    <ClInclude Include="Machine.h">
+      <Filter>헤더 파일\Machine</Filter>
+    </ClInclude>
     <ClInclude Include="Enemy.h">
-      <Filter>헤더 파일\Player</Filter>
+      <Filter>헤더 파일\Machine</Filter>
     </ClInclude>
-    <ClInclude Include="Hole.h">
-      <Filter>헤더 파일</Filter>
+    <ClInclude Include="State.h">
+      <Filter>헤더 파일\State</Filter>
     </ClInclude>
-    <ClInclude Include="pointLF.h">
-      <Filter>헤더 파일</Filter>
+    <ClInclude Include="EnemyState.h">
+      <Filter>헤더 파일\State\EnemyState</Filter>
+    </ClInclude>
+    <ClInclude Include="Alive.h">
+      <Filter>헤더 파일\State\EnemyState</Filter>
+    </ClInclude>
+    <ClInclude Include="Attack.h">
+      <Filter>헤더 파일\State\EnemyState</Filter>
+    </ClInclude>
+    <ClInclude Include="Dead.h">
+      <Filter>헤더 파일\State\EnemyState</Filter>
+    </ClInclude>
+    <ClInclude Include="Idle.h">
+      <Filter>헤더 파일\State\EnemyState</Filter>
+    </ClInclude>
+    <ClInclude Include="figureDraw.h">
+      <Filter>헤더 파일\MyFunc</Filter>
     </ClInclude>
     <ClInclude Include="MyFunctions.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>헤더 파일\MyFunc</Filter>
+    </ClInclude>
+    <ClInclude Include="MyGdiplus.h">
+      <Filter>헤더 파일\MyFunc</Filter>
+    </ClInclude>
+    <ClInclude Include="Hole.h">
+      <Filter>헤더 파일\Singleton</Filter>
     </ClInclude>
     <ClInclude Include="InputManager.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>헤더 파일\Singleton</Filter>
+    </ClInclude>
+    <ClInclude Include="pointLF.h">
+      <Filter>헤더 파일\MyFunc</Filter>
+    </ClInclude>
+    <ClInclude Include="Event.h">
+      <Filter>헤더 파일\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyEvent.h">
+      <Filter>헤더 파일\Event</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GalsPanic.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="figureDraw.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="SceneLogin.cpp">
@@ -104,26 +164,56 @@
     <ClCompile Include="SceneState.cpp">
       <Filter>소스 파일\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="MyGdiplus.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="Player.cpp">
       <Filter>소스 파일\Player</Filter>
     </ClCompile>
     <ClCompile Include="User.cpp">
       <Filter>소스 파일\Player</Filter>
     </ClCompile>
-    <ClCompile Include="Enemy.cpp">
-      <Filter>소스 파일\Player</Filter>
+    <ClCompile Include="Machine.cpp">
+      <Filter>소스 파일\Machine</Filter>
     </ClCompile>
-    <ClCompile Include="Hole.cpp">
-      <Filter>소스 파일</Filter>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>소스 파일\Machine</Filter>
+    </ClCompile>
+    <ClCompile Include="State.cpp">
+      <Filter>소스 파일\State</Filter>
+    </ClCompile>
+    <ClCompile Include="Alive.cpp">
+      <Filter>소스 파일\State\EnemyState</Filter>
+    </ClCompile>
+    <ClCompile Include="Attack.cpp">
+      <Filter>소스 파일\State\EnemyState</Filter>
+    </ClCompile>
+    <ClCompile Include="Dead.cpp">
+      <Filter>소스 파일\State\EnemyState</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyState.cpp">
+      <Filter>소스 파일\State\EnemyState</Filter>
+    </ClCompile>
+    <ClCompile Include="Idle.cpp">
+      <Filter>소스 파일\State\EnemyState</Filter>
+    </ClCompile>
+    <ClCompile Include="MyGdiplus.cpp">
+      <Filter>소스 파일\MyFunc</Filter>
     </ClCompile>
     <ClCompile Include="MyFunctions.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>소스 파일\MyFunc</Filter>
     </ClCompile>
     <ClCompile Include="InputManager.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>소스 파일\Singleton</Filter>
+    </ClCompile>
+    <ClCompile Include="Hole.cpp">
+      <Filter>소스 파일\Singleton</Filter>
+    </ClCompile>
+    <ClCompile Include="figureDraw.cpp">
+      <Filter>소스 파일\MyFunc</Filter>
+    </ClCompile>
+    <ClCompile Include="Event.cpp">
+      <Filter>소스 파일\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyEvent.cpp">
+      <Filter>소스 파일\Event</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

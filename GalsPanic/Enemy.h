@@ -3,24 +3,39 @@
 #define ENEMY_H_
 
 #include <Windows.h>
-#include "Player.h"
+#include "Machine.h"
 
-class Player;
+class Machine;
 
-class Enemy : public Player
+class Enemy : public Machine
 {
 private:
+	HWND hWnd_;
+	int life_;
+	SIZE size_;
 public:
-	Enemy() {}
-	Enemy(HWND _hWnd, POINT _pose, int _life, SIZE _collision_size, SIZE _size)
-		: Player(_hWnd, _pose, _life, _collision_size, _size) {}
-	Enemy(HWND _hWnd, int _cx, int _cy, int _life, SIZE _collision_size, SIZE _size)
-		: Player(_hWnd, POINT{ _cx, _cy }, _life, _collision_size, _size) {}
+	enum state_id { State_Alive, State_Dead, State_Idle, State_Attack};
+public:
+	explicit Enemy(State* _state, POINT _pose, float _vx, float _vy, SIZE _collision_size, HWND _hWnd, int _life, SIZE _size) 
+		: Machine(_state, _pose, _vx, _vy, _collision_size) {}
 	~Enemy() {}
 
-	int Draw(HDC) override;
+	virtual void Transition(State*);
+	virtual void Notify(event::Event*);
+
+	int Draw(HDC) const override;
 	int Update() override;
+	int Input() override;
 	int Input(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) override;
+
+	void Move();
+	void Destroy();
+
+	void AttackUser();
+	void EnemyShake();
+
+	// Bounce ÇÔ¼ö
+	void BounceLine();
 };
 
 #endif

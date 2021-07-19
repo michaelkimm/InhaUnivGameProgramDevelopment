@@ -142,3 +142,13 @@ double GetArea(const std::vector<POINT>& polygon)
 
 	return fabs(sum) / 2;
 }
+
+
+// 원 충돌함수
+int DidCollide(Machine *machine_a, Machine *machine_b)
+{
+	// 머신a가 머신b와 충돌했으면 true 반환, 안했으면 1반환.
+	
+
+	return 0;
+}

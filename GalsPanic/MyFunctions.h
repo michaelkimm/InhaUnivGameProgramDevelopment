@@ -4,6 +4,8 @@
 #include "Hole.h"
 #include <vector>
 
+class Machine;
+
 
 // POINT pt가 polygon 내부에 있는지 확인하는 함수입니다.
 bool IsInside(POINT pt, std::vector<POINT> &polygon);					// 일부 선 위의 점도 내부라고 판정
@@ -26,5 +28,8 @@ int ccw(const POINT & pa, const POINT & pb, const POINT & pc);
 // 면적 구하기 함수입니다.
 double GetArea(const std::vector<POINT>& polygon);
 
+
+// 원 충돌함수
+int DidCollide(Machine*, Machine*);
 
 
