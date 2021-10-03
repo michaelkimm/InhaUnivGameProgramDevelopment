@@ -25,7 +25,6 @@ public:
 	User(HWND _hWnd, POINT _pose, int _life, SIZE _collision_size, SIZE _size);
 	User(HWND _hWnd, int _cx, int _cy, int _life, SIZE _collision_size, SIZE _size);
 
-	POINT GetPose() const { return pose_; }
 	void SetPose(POINT _pose) { pose_ = _pose; }
 	void SetPose(int x, int y) { pose_ = POINT{ x, y }; }
 	void SetData(HWND _hWnd, POINT _pose, int _life, SIZE _collision_size, SIZE _size);

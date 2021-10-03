@@ -1,8 +1,10 @@
+#include "SceneMain.h"
+
 #include <Windows.h>
 #include <tchar.h>
 #include <iostream>
+using namespace std;
 
-#include "SceneMain.h"
 #include "figureDraw.h"
 #include "MyGdiplus.h"
 #include "User.h"
@@ -36,11 +38,11 @@ SceneMain::SceneMain(HWND _hWnd) : SceneState(_hWnd)
 	hole_.emplace_back(POINT{ cx - rect_width / 2, cy + rect_height / 2 });
 
 	// 플레이어 얻기
-	user_ = new User(hWnd_, left_up.x, left_up.y, 3, SIZE{ 20, 20 }, SIZE{ 20, 20 });
-	user_->SetData(hWnd_, left_up.x, left_up.y, 3, SIZE{ 20, 20 }, SIZE{ 20, 20 });
+	user_ = new User(hWnd_, left_up.x, left_up.y, 3, SIZE{ 40, 40 }, SIZE{ 40, 40 });
+	user_->SetData(hWnd_, left_up.x, left_up.y, 3, SIZE{ 40, 40 }, SIZE{ 40, 40 });
 
 	// 적 얻기
-	enemy_ = new Enemy(Idle::Instance(), POINT{ 200, 200 }, 5, 5, SIZE{ 50, 50 }, hWnd_, 1, SIZE{ 50, 50 });
+	enemy_ = new Enemy(Idle::Instance(), POINT{ 200, 200 }, 100, 0, SIZE{ 50, 50 }, hWnd_, 1, SIZE{ 50, 50 });
 }
 
 SceneMain::~SceneMain()
@@ -70,7 +72,18 @@ int SceneMain::Update(SceneManager * _s)
 	// <<
 
 	// : >> 적 업데이트
-	enemy_->Update();
+	// 적 움직이기
+	enemy_->Move();
+
+	// 충돌감지
+	if (enemy_->Collision(client_))
+		cout << "벽과 충돌!\n";
+
+	if (enemy_->Collision(hole_))
+		cout << "구멍과 충돌!\n";
+
+	if (enemy_->Collision(user_))
+		cout << "유저와 충돌!\n";
 	// <<
 
 	return 0;

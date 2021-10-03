@@ -1,6 +1,9 @@
 #include "MyFunctions.h"
 #include <math.h>
 
+#include <iostream>
+using namespace std;
+
 // POINT pt가 polygon 내부에 있는지 확인하는 함수입니다.
 bool IsInside(POINT pt, std::vector<POINT> &polygon)
 {
@@ -151,4 +154,67 @@ int DidCollide(Machine *machine_a, Machine *machine_b)
 	
 
 	return 0;
+}
+
+float PtDistance(POINT & p1, POINT & p2)
+{
+	return sqrtf((p1.x - p2.x) * (p1.x - p2.x) + (p1.y - p2.y) * (p1.y - p2.y));
+}
+
+float PtDot(int x1, int y1, float vx, float vy)
+{
+	return x1 * vx + y1 * vy;
+}
+
+bool CirclePoly(int cx, int cy, int r, std::vector<POINT>& polygon)
+{
+	int next;
+	for (int current = 0; current < polygon.size(); current++)
+	{
+		next = (current + 1) % polygon.size();
+		
+		if (CircleLine(cx, cy, r, polygon[current].x, polygon[current].y, polygon[next].x, polygon[next].y))
+			return true;
+	}
+	return false;
+}
+
+bool CircleLine(int cx, int cy, int r, int x1, int y1, int x2, int y2)
+{
+	bool inside1 = PointInCircle(x1, y1, cx, cy, r);
+	bool inside2 = PointInCircle(x2, y2, cx, cy, r);
+
+	// 점이 원 안에 있으면 true
+	if (inside1 || inside2)
+		return true;
+
+	float distX = x2 - x1;
+	float distY = y2 - y1;
+	float len = sqrtf((distX * distX) + (distY * distY));
+
+	float dot = (((cx - x1) * (x2 - x1)) + ((cy - y1) * (y2 - y1))) / pow(len, 2);
+
+	float closestX = x1 + (dot * (x2 - x1));
+	float closestY = y1 + (dot * (y2 - y1));
+
+	// 내적 점이 선분 위에 없으면 false
+	bool onSegment = LinePoint(x1, y1, x2, y2, closestX, closestY);
+	if (!onSegment)
+		return false;
+
+	// 내적 점과 중심 사이 거리
+	distX = closestX - cx;
+	distY = closestY - cy;
+
+	// 가장 가까운 내적 점과 중심점 사이 거리
+	float pt_distance = sqrtf((distX * distX) + (distY * distY));
+	if (pt_distance <= r)
+		return true;
+
+	return false;
+}
+
+bool PointInCircle(int px, int py, int cx, int cy, int r)
+{
+	return ((px - cx) * (px - cx) + (py - cy) * (py - cy)) <= (r * r);
 }

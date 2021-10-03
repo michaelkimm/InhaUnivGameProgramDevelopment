@@ -22,6 +22,9 @@ public:
 	virtual int Draw(HDC) = 0;
 	virtual int Update() = 0;
 	virtual int Input(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) = 0;
+
+	POINT	GetPose() const { return pose_; }
+	SIZE	GetSize() const { return size_; }
 };
 
 #endif

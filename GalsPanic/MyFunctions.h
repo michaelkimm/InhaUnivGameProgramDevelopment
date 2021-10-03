@@ -32,4 +32,9 @@ double GetArea(const std::vector<POINT>& polygon);
 // 원 충돌함수
 int DidCollide(Machine*, Machine*);
 
+float PtDistance(POINT& p1, POINT& p2);
+float PtDot(int x1, int y1, float vx, float vy);
 
+bool CirclePoly(int cx, int cy, int r, std::vector<POINT>& polygon);
+bool CircleLine(int cx, int cy, int r, int x1, int y1, int x2, int y2);
+bool PointInCircle(int px, int py, int cx, int cy, int r);

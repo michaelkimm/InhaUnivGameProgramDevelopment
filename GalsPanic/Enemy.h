@@ -3,8 +3,10 @@
 #define ENEMY_H_
 
 #include <Windows.h>
+#include <vector>
 #include "Machine.h"
 
+class User;
 class Machine;
 
 class Enemy : public Machine
@@ -35,6 +37,11 @@ public:
 
 	// Bounce 함수
 	void BounceLine();
+
+	// 충돌 함수
+	bool Collision(RECT& _rect);
+	bool Collision(std::vector<POINT>& _point_vec);
+	bool Collision(User *);
 };
 
 #endif

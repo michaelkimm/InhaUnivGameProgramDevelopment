@@ -29,7 +29,7 @@ void User::SetData(HWND _hWnd, int _cx, int _cy, int _life, SIZE _collision_size
 
 int User::Draw(HDC _hdc)
 {
-	DrawEllipse(_hdc, pose_, size_.cx);
+	DrawEllipse(_hdc, pose_, size_.cx / 2);
 	// Polygon(_hdc, pt_POINT, polygon_hole_.size());
 	if (polygon_hole_.size() > 1)
 		Polyline(_hdc, &polygon_hole_[0], polygon_hole_.size());

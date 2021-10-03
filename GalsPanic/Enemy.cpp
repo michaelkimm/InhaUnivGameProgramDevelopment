@@ -4,7 +4,9 @@
 #include "EnemyState.h"
 #include "EnemyEvent.h"
 #include "figureDraw.h"
+#include "MyFunctions.h"
 
+#include <math.h>
 #include <iostream>
 using namespace std;
 
@@ -27,7 +29,7 @@ void Enemy::Transition(State* s)
 
 int Enemy::Draw(HDC hdc) const
 {
-	DrawEllipse(hdc, pose_, size_.cx);
+	DrawEllipse(hdc, pose_, size_.cx / 2);
 	return 0;
 }
 
@@ -80,7 +82,16 @@ int Enemy::Input(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
 void Enemy::Move()
 {
-	cout << "Enemy Move!\n";
+	// : >> 위치 움직이기
+	float milsec = 0.01;
+	pose_.x += vx_ * milsec;
+	pose_.y += vy_ * milsec;
+	// <<
+
+	// : >> 충돌 감지 및 상태 값 조정
+	// 벽 부딛히면 통과
+	// << 
+
 }
 
 void Enemy::Destroy()
@@ -100,4 +111,23 @@ void Enemy::EnemyShake()
 
 void Enemy::BounceLine()
 {
+}
+
+bool Enemy::Collision(RECT& _rect)
+{
+	return (pose_.x + size_.cx / 2 >= _rect.right) || (pose_.x - size_.cx / 2 < 0) || (pose_.y + size_.cy > _rect.bottom) || (pose_.y - size_.cy < 0);
+}
+
+bool Enemy::Collision(std::vector<POINT>& _point_vec)
+{
+	int rad = size_.cx / 2;
+	// 중점과 선분 사이 거리가 
+	
+	return CirclePoly(pose_.x, pose_.y, rad, _point_vec);
+}
+
+bool Enemy::Collision(User *_user)
+{
+	int enemy_rad = size_.cx / 2;
+	return (pow(pose_.x - _user->GetPose().x, 2) + pow(pose_.y - _user->GetPose().y, 2)) <= pow(enemy_rad + (_user->GetSize().cx / 2), 2);
 }
